@@ -5,11 +5,13 @@ from configs import bases
 import os
 
 to_dos = 0
-name_db = bases.name_db
+name_db = 'bases.name_db'
 
 
 print('Привет! Давай поработаем!')
 print('1. Импорт источников')
+print('2. Экспорт источников')
+print('3. Вывести список источников')
 
 
 def exists(path):
@@ -62,8 +64,23 @@ while True:
 
             if to_dos == 1:
                 bases = sqlite_base(name_db)
-                data = [(posts[i]['id'], posts[i]['date'], posts[i]['text']) for i in
-                        range(len(posts))]
+                data = [(
+                        posts[i]['id'], posts[i]['source_id'], posts[i]['date'],
+                        posts[i]['text']) for i in range(len(posts)
+                        )]
                 bases.save(data)
             elif to_dos == 2:
                 print('Начинаем сначала!')
+
+    elif int(choise) == 2:
+        print('Выбран вариант № 2')
+        continue
+
+    elif int(choise) == 3:
+        print('Выбран вариант № 3')
+        print('Выводим список всех источников с назначением: ')
+        continue
+
+    else:
+        print('Выбран неверный вариант! Повторите ввод или 0 для выхода')
+        continue
