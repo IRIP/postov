@@ -1,0 +1,1 @@
+name_db = "/home/irip/pycharm/getpost/base/data.bd"
