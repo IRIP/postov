@@ -24,7 +24,7 @@ def exists(path):
 
 
 while True:
-    choise = input('\n Выбери цифру нужного варианта: ')
+    choise = input('\n Выбери цифру нужного варианта (0 - выход: ')
 
     if int(choise) <= 0:
         # нулевой случай
