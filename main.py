@@ -12,6 +12,7 @@ print('Привет! Давай поработаем!')
 print('1. Импорт источников')
 print('2. Экспорт источников')
 print('3. Вывести список источников')
+print('4. Запустить кросс-постинг.')
 
 
 def exists(path):
@@ -33,22 +34,24 @@ while True:
 
     elif int(choise) == 1:
         print('Выбран вариант № 1 \n')
-        id = input('Введите id источника: \n')
+        id = input('Введите id VK (впереди минус, если группа): \n')
 
         posts = []
 
         try:
             vk = vk_core.vk_parser()
-            posts = vk.get_info(int(id))
+            posts = vk.get_info(int(id))  # получаем список постов
         except:
             pass
 
         if not posts:
-            print("Ошибка id-источника")
+            print("Ошибка id-источника (вначале минус, если группа!")
         else:
-            print('Количество постов:', len(posts))
+            print('Найдено постов:', len(posts))
             save = input('Вы хотите сохранить введенные данные? Да(y)/Нет(n): \n')
+
             if save.lower() in ("да", "1", "y"):
+                # проверяем, если базы нет, предлагаем создать.
                 if not exists(name_db):
                     bd = input('Первый запуск программы. '
                                'Вы хотите создать базу данных? '
@@ -57,18 +60,25 @@ while True:
                         to_dos = 1
                     else:
                         to_dos = 2
+                # если база создана, то переходим в to_dos
                 else:
                     to_dos = 1
+
             elif save.lower() in ("нет", "0", "n"):
                 to_dos = 2
 
             if to_dos == 1:
                 bases = sqlite_base(name_db)
-                data = [(
-                        posts[i]['id'], posts[i]['source_id'], posts[i]['date'],
-                        posts[i]['text']) for i in range(len(posts)
-                        )]
+                data = [
+                        (
+                            posts[i]['id'],
+                            posts[i]['source_id'],
+                            posts[i]['date'],
+                            posts[i]['text']) for i in range(len(posts)
+                        )
+                        ]
                 bases.save(data)
+
             elif to_dos == 2:
                 print('Начинаем сначала!')
 
@@ -79,6 +89,11 @@ while True:
     elif int(choise) == 3:
         print('Выбран вариант № 3')
         print('Выводим список всех источников с назначением: ')
+        continue
+
+    elif int(choise) == 4:
+        print('Выбран вариант № 4')
+        print('Начинаем кросс-постинг...')
         continue
 
     else:
