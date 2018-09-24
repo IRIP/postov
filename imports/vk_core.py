@@ -71,7 +71,9 @@ class vk_parser:
 
     def get_pictures(self, pictures):
         """
-            Все фотографии поста (их нужно загрузить в папку upload/id_source/img проекта)
+            Все фотографии поста (их нужно загрузить в папку upload/id_source/img
+            проекта). то есть по [attachments] мне нужно получить значение
+            [link][titel] [link][photo][photo_130] (любой размер)
         """
         pass
 

@@ -72,7 +72,6 @@ while True:
                 data = [
                         (
                             posts[i]['id'],
-                            posts[i]['source_id'],
                             posts[i]['date'],
                             posts[i]['text']) for i in range(len(posts)
                         )

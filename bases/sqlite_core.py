@@ -8,7 +8,7 @@ class sqlite_base:
         try:
             self.c.execute(
                 '''
-                CREATE TABLE vkdata( 
+                CREATE TABLE IF NOT EXISTS vkdata( 
                     id integer,  # id источника
                     author_photo,  # аватар автора поста
                     title,  # заголовок (генерируется)
