@@ -3,6 +3,8 @@ from imports import vk_core
 from bases.sqlite_core import sqlite_base
 from configs import bases
 import os
+import json
+import requests
 
 to_dos = 0
 name_db = 'bases.name_db'
@@ -41,7 +43,9 @@ while True:
         try:
             vk = vk_core.vk_parser()
             posts = vk.get_info(int(id))  # получаем список постов
-            print(posts)
+            # print(posts)
+            json_decode = json.loads(posts)
+            print(json_decode['attachments'][0]['type'])
         except:
             pass
 

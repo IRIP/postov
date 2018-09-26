@@ -8,8 +8,10 @@ class sqlite_base:
         """
         # Connection объект олицетворяет базу данных
         self.conn = sqlite3.connect(name_db)
+
         # Создание таблицы
         self.c = self.conn.cursor()
+
         # Вставка ряда данных
         self.c.execute(
                 '''
@@ -28,13 +30,13 @@ class sqlite_base:
                     CONSTRAINT name_unique UNIQUE (id))
                 '''
             )
-        #
-        # except:
-        #     print("Не удалось создать таблицу")
+
 
     def save(self, data):
         self.c.executemany("INSERT OR IGNORE INTO vkdata(id) VALUES (?,?,?)", data)
+
         # Сохранение (commit) изменений
         self.conn.commit()
+
         # Закрытие курсора, в случае если он больше не нужен
         self.conn.close()
