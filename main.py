@@ -41,6 +41,7 @@ while True:
         try:
             vk = vk_core.vk_parser()
             posts = vk.get_info(int(id))  # получаем список постов
+            print(posts)
         except:
             pass
 
@@ -75,7 +76,7 @@ while True:
                             posts[i]['date'],
                             posts[i]['text']) for i in range(len(posts)
                         )
-                        ]
+                    ]
                 bases.save(data)
 
             elif to_dos == 2:
