@@ -5,6 +5,9 @@ from configs import bases
 import os
 import json
 import requests
+import itertools
+import operator
+import pymongo
 
 to_dos = 0
 name_db = 'bases.name_db'
@@ -43,11 +46,20 @@ while True:
         try:
             vk = vk_core.vk_parser()
             posts = vk.get_info(int(id))  # получаем список постов
-            # print(posts)
-            json_decode = json.loads(posts)
-            print(json_decode['attachments'][0]['type'])
+            print(posts)
+            by_name = operator.itemgetter('id')
+            result = []
+            for id, grp in itertools.groupby(sorted(posts, key=by_name), key=by_name):
+                playing = set(itertools.chain.from_iterable(x['attachments'] for x
+                              in grp))
+            # Если порядок `игры` важен, используйте` collections.OrderedDict`
+            # playing = collections.OrderedDict.fromkeys (
+            # itertools.chain.from_iterable (x ['playing'] for x в grp))
+                result.append({'id': id, 'attachments': list(playing)})
+            print(result)
+
         except:
-            pass
+            print('none')
 
         if not posts:
             print("Ошибка id-источника (вначале минус, если группа!")

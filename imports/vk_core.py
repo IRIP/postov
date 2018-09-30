@@ -28,7 +28,7 @@ class vk_parser:
             одним пакетом.
         """
         tools = vk_api.VkTools(self.vk_session)
-        wall = tools.get_all('wall.get', 10, {'owner_id': id})
+        wall = tools.get_all('wall.get', 100, {'owner_id': id})
         return wall['items']
 
 
@@ -156,6 +156,7 @@ class vk_parser:
     def get_music(self, music):
         """
             Все аудио поста (их нужно загрузить в папку upload/id_source/msc проекта)
+            https://toster.ru/q/398540
         """
         pass
 
