@@ -47,16 +47,6 @@ while True:
             vk = vk_core.vk_parser()
             posts = vk.get_info(int(id))  # получаем список постов
             print(posts)
-            by_name = operator.itemgetter('id')
-            result = []
-            for id, grp in itertools.groupby(sorted(posts, key=by_name), key=by_name):
-                playing = set(itertools.chain.from_iterable(x['attachments'] for x
-                              in grp))
-            # Если порядок `игры` важен, используйте` collections.OrderedDict`
-            # playing = collections.OrderedDict.fromkeys (
-            # itertools.chain.from_iterable (x ['playing'] for x в grp))
-                result.append({'id': id, 'attachments': list(playing)})
-            print(result)
 
         except:
             print('none')

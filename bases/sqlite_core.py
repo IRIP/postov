@@ -15,40 +15,36 @@ class sqlite_base:
         # Вставка ряда данных
         self.c.execute(
                 '''
-                CREATE TABLE IF NOT EXISTS vkdata( 
-                        vkdata_id,
+                CREATE TABLE IF NOT EXISTS data( 
+                        post_id,
                         id integer, 
-                        from_id integer,
-                        owner_id integer,
-                        date integer, 
-                        marked_as_ads integer,
-                        post_type string, 
-                        created_by integer, 
-                        text string,
-                         
-                        reply_owner_id integer, 
-                        reply_post_id integer,
-                        friends_only integer,
-                        signer_id integer,
-                    CONSTRAINT name_unique UNIQUE (id))
+                        date date,
+                        text integer,
+                        lat int ,
+                        lng int,
+                        place_id integer ,                        
+                        post_source integer,
+                        profiles integer,
+                    CONSTRAINT name_unique UNIQUE (post_id))
                 '''
             )
         self.c.execute(
                 '''
-                CREATE TABLE IF NOT EXISTS vkdatattachments( 
+                CREATE TABLE IF NOT EXISTS attachments( 
                         vkdata_id,
-                        type integer, 
-                        from_id integer,
-                        owner_id integer,
-                        date integer, 
-                        marked_as_ads integer,
-                        post_type string, 
-                        created_by integer, 
-                        text string, 
-                        reply_owner_id integer, 
-                        reply_post_id integer,
-                        friends_only integer,
-                        signer_id integer,
+                        id int,
+                        photo integer,
+                        video integer,
+                        audio integer,
+                        doc integer,
+                        page integer,
+                        note integer,
+                        poll integer,
+                        album integer,
+                        market integer,
+                        market_album integer,
+                        audio_playlist integer,
+                        url integer,
                     CONSTRAINT name_unique UNIQUE (id))
                 '''
             )
