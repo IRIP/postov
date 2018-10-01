@@ -15,7 +15,7 @@ class sqlite_base:
         # Вставка ряда данных
         self.c.execute(
                 '''
-                CREATE TABLE IF NOT EXISTS data( 
+                CREATE TABLE IF NOT EXISTS source( 
                         post_id,
                         id integer, 
                         date date,
@@ -33,34 +33,17 @@ class sqlite_base:
                 CREATE TABLE IF NOT EXISTS attachments( 
                         vkdata_id,
                         id int,
-                        photo integer,
-                        video integer,
-                        audio integer,
-                        doc integer,
-                        page integer,
-                        note integer,
-                        poll integer,
-                        album integer,
-                        market integer,
-                        market_album integer,
-                        audio_playlist integer,
-                        url integer,
-                    CONSTRAINT name_unique UNIQUE (id))
-                '''
-            )
-        self.c.execute(
-                '''
-                CREATE TABLE IF NOT EXISTS vkdataAttachmenType( 
-                        vkdata_id,
-                        id, 
-                                               
- 
+                        type integer,
+                        dict integer
                     CONSTRAINT name_unique UNIQUE (id))
                 '''
             )
 
-    def save(self, data):
-        self.c.executemany("INSERT OR IGNORE INTO vkdata(id) VALUES (?,?,?)", data)
+
+    def save(self, source, attachments):
+        self.c.executemany("INSERT OR IGNORE INTO source(id) VALUES (?,?,?)", source)
+        self.c.executemany("INSERT OR IGNORE INTO attachments(id) VALUES (?,?,?)",
+                           attachments)
 
         # Сохранение (commit) изменений
         self.conn.commit()

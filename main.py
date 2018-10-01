@@ -76,14 +76,21 @@ while True:
 
             if to_dos == 1:
                 bases = sqlite_base(name_db)
-                data = [
-                        (
-                            posts[i]['id'],
-                            posts[i]['date'],
-                            posts[i]['text']) for i in range(len(posts)
-                        )
-                    ]
-                bases.save(data)
+                source = [
+                    (
+                        posts[i]['id'],
+                        posts[i]['date'],
+                        posts[i]['text'],
+                        posts[i]['']
+                        ) for i in range(len(posts)
+                    )
+                ]
+                attachments = [
+                    (
+
+                    )
+                ]
+                bases.save(source, attachments)
 
             elif to_dos == 2:
                 print('Начинаем сначала!')
