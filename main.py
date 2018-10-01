@@ -29,7 +29,7 @@ def exists(path):
 
 
 while True:
-    choise = input('\n Выбери цифру нужного варианта (0 - выход: ')
+    choise = input('\n >>> (0-выход): ')
 
     if int(choise) <= 0:
         # нулевой случай
@@ -87,7 +87,8 @@ while True:
                 ]
                 attachments = [
                     (
-
+                        posts[i]['attachments']['type'],
+                        ) for i in range(len(posts)
                     )
                 ]
                 bases.save(source, attachments)
