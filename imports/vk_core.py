@@ -1,16 +1,18 @@
 import vk_api
 import vk
 from configs import passwords
-from configs import vk_settings
+# from configs import vk_settings
 import time as t
 import requests
 import datetime
 
-request_params = {
-        'owner_id': id,
-        'offset': 0,  #параметр с "какой начинать"...
-        'count': vk_settings.count
-}
+method = 'wall.get'
+max_count = 2
+values = {'owner_id': id}
+key = 'items'
+limit = None
+stop_fn = None
+negative_offset = False
 
 class vk_parser:
     def __init__(self):
@@ -34,7 +36,8 @@ class vk_parser:
         """
 
         tools = vk_api.VkTools(self.vk_session)
-        wall = tools.get_all_iter(request_params)
+        wall = tools.get_all_iter(method, max_count, values, key, limit, stop_fn,
+                                    negative_offset)
         return wall['items']
 
 
