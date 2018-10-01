@@ -31,8 +31,8 @@ class sqlite_base:
         self.c.execute(
                 '''
                 CREATE TABLE IF NOT EXISTS attachments( 
-                        vkdata_id,
                         id int,
+                        post_id,
                         type integer,
                         dict integer
                     CONSTRAINT name_unique UNIQUE (id))
