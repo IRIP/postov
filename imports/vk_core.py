@@ -6,13 +6,7 @@ import time as t
 import requests
 import datetime
 
-method = 'wall.get'
-max_count = 2
-values = {'owner_id': id}
-key = 'items'
-limit = None
-stop_fn = None
-negative_offset = False
+
 
 class vk_parser:
     def __init__(self):
@@ -34,10 +28,10 @@ class vk_parser:
             Получаем полную информацию из поста. Ссылки на фото, текст и т.п.
             одним пакетом.
         """
-
         tools = vk_api.VkTools(self.vk_session)
-        wall = tools.get_all_iter(method, max_count, values, key, limit, stop_fn,
-                                    negative_offset)
+        # wall = tools.get_all_iter(method, max_count, values, key, limit, stop_fn,
+        #                             negative_offset)
+        wall = tools.get_all_iter('wall.get', 3, {'owner_id': id})
         return wall['items']
 
 
