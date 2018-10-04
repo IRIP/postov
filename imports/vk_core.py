@@ -22,6 +22,11 @@ class vk_parser:
         except vk_api.AuthError as error_msg:
             print(error_msg)
 
+    def get_post_count(self, id):
+        tools = vk_api.VkTools(self.vk_session)
+        wall = tools.get_all('wall.get', 100, {'owner_id': id})
+        for post in wall['items']:
+            return post['id']
 
     def get_info(self, id):
         """

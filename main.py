@@ -33,7 +33,7 @@ while True:
 
     if int(choise) <= 0:
         # нулевой случай
-        print('Введено отрицательное число или == 0.')
+        print('Ошибка ввода.')
         print('Работа программы прекращена')
         break
 
@@ -45,24 +45,26 @@ while True:
 
         try:
             vk = vk_core.vk_parser()
-            posts = vk.get_info(int(id))  # получаем список постов
+            # posts = vk.get_info(int(id))  # получаем список постов
             # print(posts)
+            count = vk.get_post_count(int(id))  # получаем кол-во постов
+            print('Всего найдено:', count)
 
         except:
-            print('none')
+            print('Пустой запрос')
 
         if not posts:
             print("Ошибка id-источника (вначале минус, если группа!")
         else:
             # print('Найдено постов:', len(posts))
-            save = input('Сохранить данные? Да(y)/Нет(n): \n')
+            save = input('Сохранить данные? Да(y)/Нет(n): ')
 
             if save.lower() in ("да", "1", "y"):
                 # проверяем, если базы нет, предлагаем создать.
                 if not exists(name_db):
                     bd = input('Первый запуск программы. '
                                'Вы хотите создать базу данных? '
-                               'Да(y)/Нет(n): \n')
+                               'Да(y)/Нет(n): ')
                     if bd.lower() in ("да", "1", "y"):
                         to_dos = 1
                     else:
@@ -76,22 +78,9 @@ while True:
 
             if to_dos == 1:
                 bases = sqlite_base(name_db)
-                source = [
-                    (
-                        posts[i]['id'],
-                        posts[i]['date'],
-                        posts[i]['text'],
-                        posts[i]['']
-                        ) for i in range(len(posts)
-                    )
-                ]
-                attachments = [
-                    (
-                        posts[i]['attachments']['type'],
-                        ) for i in range(len(posts)
-                    )
-                ]
-                bases.save(source, attachments)
+                data = [(posts[i]['id'], posts[i]['date'], posts[i]['text']) for i in
+                        range(len(posts))]
+                bases.save(data)
 
             elif to_dos == 2:
                 print('Начинаем сначала!')
