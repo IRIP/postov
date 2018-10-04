@@ -31,7 +31,7 @@ class vk_parser:
         tools = vk_api.VkTools(self.vk_session)
         # wall = tools.get_all_iter(method, max_count, values, key, limit, stop_fn,
         #                             negative_offset)
-        wall = tools.get_all_iter('wall.get', 3, {'owner_id': id})
+        wall = tools.get_all('wall.get', 1, {'owner_id': id})
         return wall['items']
 
 

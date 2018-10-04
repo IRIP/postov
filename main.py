@@ -46,7 +46,7 @@ while True:
         try:
             vk = vk_core.vk_parser()
             posts = vk.get_info(int(id))  # получаем список постов
-            print(posts)
+            # print(posts)
 
         except:
             print('none')
@@ -54,8 +54,8 @@ while True:
         if not posts:
             print("Ошибка id-источника (вначале минус, если группа!")
         else:
-            print('Найдено постов:', len(posts))
-            save = input('Вы хотите сохранить введенные данные? Да(y)/Нет(n): \n')
+            # print('Найдено постов:', len(posts))
+            save = input('Сохранить данные? Да(y)/Нет(n): \n')
 
             if save.lower() in ("да", "1", "y"):
                 # проверяем, если базы нет, предлагаем создать.
