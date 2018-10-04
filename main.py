@@ -45,8 +45,6 @@ while True:
 
         try:
             vk = vk_core.vk_parser()
-            # posts = vk.get_info(int(id))  # получаем список постов
-            # print(posts)
             count = vk.get_post_count(int(id))  # получаем кол-во постов
             print('Всего найдено:', count)
 
@@ -56,7 +54,6 @@ while True:
         if not posts:
             print("Ошибка id-источника (вначале минус, если группа!")
         else:
-            # print('Найдено постов:', len(posts))
             save = input('Сохранить данные? Да(y)/Нет(n): ')
 
             if save.lower() in ("да", "1", "y"):

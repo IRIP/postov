@@ -24,9 +24,41 @@ class vk_parser:
 
     def get_post_count(self, id):
         tools = vk_api.VkTools(self.vk_session)
+        iters = 10
+
+        offset = 0
+        # method =
+        max_count = 1
+        # key = 'items'
+        limit = 1
+        # stop_fn =
+        negative_offset = -1
+        i = 0
+
+        while i < iters:
+            items = tools.get_all_iter(
+                                        'wall_get',
+                                        max_count,
+                                        {'owner_id': id},
+                                        key='items',
+                                        limit=None,
+                                        stop_fn=None,
+                                        negative_offset=False,
+            )
+
+            if items.length == 0:  # пустой список означает, что все записи получены
+                return posts
+
+        tmp = {}
+        # Для хранения промежуточных ответов
+        posts = []
+        # список полученных постов
+
+
         wall = tools.get_all('wall.get', 100, {'owner_id': id})
         for post in wall['items']:
             return post['id']
+
 
     def get_info(self, id):
         """
