@@ -73,9 +73,15 @@ while True:
 
             if to_dos == 1:
                 bases = sqlite_base(name_db)
-                data = [(posts[i]['id'], posts[i]['date'], posts[i]['text']) for i in
-                        range(len(posts))]
-                bases.save(data)
+                while count >= 0:
+                    post = vk.get_post_count(int(id))
+                    print(post)
+
+
+
+                # data = [(post[i]['id'], post[i]['date'], post[i]['text']) for i in
+                #         range(len(post))]
+                # bases.save(data)
 
             elif to_dos == 2:
                 print('Начинаем сначала!')

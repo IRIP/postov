@@ -64,13 +64,16 @@ class vk_parser:
             одним пакетом.
         """
         tools = vk_api.VkTools(self.vk_session)
-        # wall = tools.get_all_iter(method, max_count, values, key, limit, stop_fn,
-        #                             negative_offset)
         wall = tools.get_all('wall.get', 1, {'owner_id': id})
         return wall['items']
 
 
     def get_count(self, id):
+        """
+            Получаем цифру - количество постов в источнике
+        :param id:
+        :return:
+        """
         tools = vk_api.VkTools(self.vk_session)
         wall = tools.get_all('wall.get', 100, {'owner_id': id})
         for post in wall['items']:
