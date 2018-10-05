@@ -36,18 +36,16 @@ class vk_parser:
         i = 0
 
         while i < iters:
-            items = tools.get_all_iter(
-                                        'wall_get',
-                                        max_count,
-                                        {'owner_id': id},
-                                        key='items',
-                                        limit=None,
-                                        stop_fn=None,
-                                        negative_offset=False,
-            )
-
-            if items.length == 0:  # пустой список означает, что все записи получены
+            items = tools.get_all_slow('wall_get', max_count, {'owner_id': id},
+                                       key='items', limit=None, stop_fn=None,
+                                       negative_offset=False)
+        if items.length == 0:
+            # пустой список означает, что все записи получены
+            return items
+        else:
+            for posts in items['items']:
                 return posts
+
 
         tmp = {}
         # Для хранения промежуточных ответов
@@ -55,9 +53,9 @@ class vk_parser:
         # список полученных постов
 
 
-        wall = tools.get_all('wall.get', 100, {'owner_id': id})
-        for post in wall['items']:
-            return post['id']
+    def get_posts(self, id):
+        tools = vk_api.VkTools(self.vk_session)
+        return tools.get_all_iter('wall.get', 1, {'owner_id': id})
 
 
     def get_info(self, id):
@@ -70,6 +68,13 @@ class vk_parser:
         #                             negative_offset)
         wall = tools.get_all('wall.get', 1, {'owner_id': id})
         return wall['items']
+
+
+    def get_count(self, id):
+        tools = vk_api.VkTools(self.vk_session)
+        wall = tools.get_all('wall.get', 100, {'owner_id': id})
+        for post in wall['items']:
+            return post['id']
 
 
     def get_author_photo(self, photo_author):

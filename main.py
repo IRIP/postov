@@ -41,18 +41,16 @@ while True:
         print('Выбран вариант № 1 \n')
         id = input('Введите id VK (впереди минус, если группа): \n')
 
-        posts = []
-
         try:
             vk = vk_core.vk_parser()
-            count = vk.get_post_count(int(id))  # получаем кол-во постов
+            count = vk.get_count(int(id))  # получаем кол-во постов
             print('Всего найдено:', count)
 
         except:
             print('Пустой запрос')
 
-        if not posts:
-            print("Ошибка id-источника (вначале минус, если группа!")
+        # if not posts:
+        #     print("Ошибка id-источника (вначале минус, если группа!")
         else:
             save = input('Сохранить данные? Да(y)/Нет(n): ')
 
