@@ -9,55 +9,6 @@ import datetime
 
 
 class vk_parser:
-    def __init__(self):
-        """
-            https://vk.com/dev/objects/post
-            https://vk.com/dev/api_requests
-        """
-        login, password = passwords.login, passwords.password
-        self.vk_session = vk_api.VkApi(login, password)
-
-        try:
-            self.vk_session.auth(token_only=True)
-        except vk_api.AuthError as error_msg:
-            print(error_msg)
-
-    def get_post_count(self, id):
-        tools = vk_api.VkTools(self.vk_session)
-        iters = 10
-
-        offset = 0
-        # method =
-        max_count = 1
-        # key = 'items'
-        limit = 1
-        # stop_fn =
-        negative_offset = -1
-        i = 0
-
-        while i < iters:
-            items = tools.get_all_slow('wall_get', max_count, {'owner_id': id},
-                                       key='items', limit=None, stop_fn=None,
-                                       negative_offset=False)
-        if items.length == 0:
-            # пустой список означает, что все записи получены
-            return items
-        else:
-            for posts in items['items']:
-                return posts
-
-
-        tmp = {}
-        # Для хранения промежуточных ответов
-        posts = []
-        # список полученных постов
-
-
-    def get_posts(self, id):
-        tools = vk_api.VkTools(self.vk_session)
-        return tools.get_all_iter('wall.get', 1, {'owner_id': id})
-
-
     def get_info(self, id):
         """
             Получаем полную информацию из поста. Ссылки на фото, текст и т.п.
@@ -68,16 +19,13 @@ class vk_parser:
         return wall['items']
 
 
-    def get_count(self, id):
+    def get_posts_count(self, id):
         """
             Получаем цифру - количество постов в источнике
-        :param id:
-        :return:
         """
         tools = vk_api.VkTools(self.vk_session)
-        wall = tools.get_all('wall.get', 100, {'owner_id': id})
-        for post in wall['items']:
-            return post['id']
+        wall = tools.get_all('wall.get', 1, {'owner_id': id})
+        return wall['count']
 
 
     def get_author_photo(self, photo_author):
@@ -274,3 +222,16 @@ class vk_parser:
     # print('Остановка:', datetime.strftime(datetime.now(), "%H:%M:%S"))
     #
     # get_ipython().magic('time get_members_list_id(12345)')
+
+    def __init__(self):
+        """
+            https://vk.com/dev/objects/post
+            https://vk.com/dev/api_requests
+        """
+        login, password = passwords.login, passwords.password
+        self.vk_session = vk_api.VkApi(login, password)
+
+        try:
+            self.vk_session.auth(token_only=True)
+        except vk_api.AuthError as error_msg:
+            print(error_msg)

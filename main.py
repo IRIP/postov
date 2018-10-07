@@ -43,7 +43,7 @@ while True:
 
         try:
             vk = vk_core.vk_parser()
-            count = vk.get_count(int(id))  # получаем кол-во постов
+            count = vk.get_posts_count(int(id))  # получаем кол-во постов
             print('Всего найдено:', count)
 
         except:
@@ -73,15 +73,20 @@ while True:
 
             if to_dos == 1:
                 bases = sqlite_base(name_db)
-                while count >= 0:
-                    post = vk.get_post_count(int(id))
+                getcount = count
+                while getcount >= 0:
+                    print('осталось', getcount)
+                    post = vk.get_info(id)
                     print(post)
 
+                    # data = [
+                    #     post[i]['id'],
+                    #     post[i]['date'],
+                    #     post[i]['text']
+                    # ]
+                    # bases.save(data)
 
-
-                # data = [(post[i]['id'], post[i]['date'], post[i]['text']) for i in
-                #         range(len(post))]
-                # bases.save(data)
+                    getcount -= int(1)
 
             elif to_dos == 2:
                 print('Начинаем сначала!')
