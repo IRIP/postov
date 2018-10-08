@@ -6,22 +6,28 @@ import time as t
 import requests
 import datetime
 
-
+# сначала, нам нужно получить список id постов на странице
+# затем, пройтись wall.getById и получить каждый из списка
 
 class vk_parser:
-    def get_info(self, id):
-        """
-            Получаем полную информацию из поста. Ссылки на фото, текст и т.п.
-            одним пакетом.
-        """
+    def get_post_by_id(self, id):
         tools = vk_api.VkTools(self.vk_session)
-        wall = tools.get_all('wall.get', 1, {'owner_id': id})
-        return wall['items']
+        wall = tools.get_all_slow_iter('wall.get', 1, {'owner_id': id}, 'items')
+
+    def get_info(self, id):
+        """ Получаем list всех id доступных в источнике
+            Отдаем: list == post_list[]
+        """
+        post_list = []
+        tools = vk_api.VkTools(self.vk_session)
+        wall = tools.get_all_slow_iter('wall.get', 1, {'owner_id': id}, 'items')
+        post_list.append([post['id'] for post in wall])
+        return post_list
 
 
     def get_posts_count(self, id):
         """
-            Получаем цифру - количество постов в источнике
+            Получаем количество постов в источнике
         """
         tools = vk_api.VkTools(self.vk_session)
         wall = tools.get_all('wall.get', 1, {'owner_id': id})

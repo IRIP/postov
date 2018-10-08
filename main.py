@@ -73,20 +73,10 @@ while True:
 
             if to_dos == 1:
                 bases = sqlite_base(name_db)
-                getcount = count
-                while getcount >= 0:
-                    print('осталось', getcount)
-                    post = vk.get_info(id)
-                    print(post)
+                post_list = vk.get_info(id)  # получили list с id всех записей
+                # print(post_list)           # проверили работоспособность
 
-                    # data = [
-                    #     post[i]['id'],
-                    #     post[i]['date'],
-                    #     post[i]['text']
-                    # ]
-                    # bases.save(data)
 
-                    getcount -= int(1)
 
             elif to_dos == 2:
                 print('Начинаем сначала!')
